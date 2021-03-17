@@ -105,6 +105,27 @@ d3.csv("assets/data/data.csv").then(function (Data) {
           )
         .attr("class", "aText active y")
         .text("Lacks healthcare (%)");
+
+        // Step 1: Append tooltip div
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .classed("tooltip", true)
+        .html(function (d) {
+            return (`${d.state}<br><hr> Smokes: ${d.smokes}% <br> Lacks Healthcare: ${d.healthcare}`)
+        });
+
+    chartGroup.call(toolTip);
+    
+    // Step 2: Create "mouseover" event listener to display tooltip
+    circlesGroup.on("mouseover", function(d) {
+        toolTip.show(data, this)
+            // .style("left", d3.event.pageX + "px")
+            // .style("top", d3.event.pageY + "px");
+    })
+        // Step 3: Create "mouseout" event listener to hide tooltip
+        .on("mouseout", function() {
+        toolTip.style("display", "none");
+
     
 
 }).catch(function (error) {
