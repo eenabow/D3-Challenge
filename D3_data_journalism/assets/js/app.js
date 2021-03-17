@@ -58,7 +58,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .append("circle")
         .attr("cx", function (d) { return xLinearScale(d.smokes); })
         .attr("cy", function (d) { return yLinearScale(d.healthcare); })
-        .attr("r", 10)
+        .attr("r", 12)
         .style("fill", "#69acb3")
         .attr("stroke", "white")
         // .append("text").text(function (d) { return (d.abbr); })
@@ -70,45 +70,13 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .enter()
         .append("text")
         .attr("class", "abr")
-        .attr("x", d => xLinearScale(d.smokes))
-        .attr("y", d => yLinearScale(d.healthcare))
+        .attr("x", d => xLinearScale(d.smokes)-10)
+        .attr("y", d => yLinearScale(d.healthcare)+4)
         .attr("fill", "white")
         .text(d => d.abbr)
 
-        
-        // theCircles
-        // .append("text")
-        // // We return the abbreviation to .text, which makes the text the abbreviation.
-        // .text(function(d) {
-        //   return d.abbr;
-        // })
-        // // Now place the text using our scale.
-        // .attr("dx", function(d) {
-        //   return xScale(d[curX]);
-        // })
-        // .attr("dy", function(d) {
-        //   // When the size of the text is the radius,
-        //   // adding a third of the radius to the height
-        //   // pushes it into the middle of the circle.
-        //   return yScale(d[curY]) + circRadius / 2.5;
-        // })
-        // .attr("font-size", circRadius)
-        // .attr("class", "stateText")
-        // // Hover Rules
-        // .on("mouseover", function(d) {
-        //   // Show the tooltip
-        //   toolTip.show(d);
-        //   // Highlight the state circle's border
-        //   d3.select("." + d.abbr).style("stroke", "#323232");
-        // })
-        // .on("mouseout", function(d) {
-        //   // Remove tooltip
-        //   toolTip.hide(d);
-        //   // Remove highlight
-        //   d3.select("." + d.abbr).style("stroke", "#e3e3e3");
-        // });
-    
 
+        
     // Create the left axis inside of the SVG 
     chartGroup.append("g")
         .classed("axis", true)
@@ -132,7 +100,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
         chartGroup.append("text")
         .attr("x", -180)
-        .attr("y", 0)
+        .attr("y", -35)
         .attr(
             "transform",
             "translate(" + leftTextX + ", " + leftTextY + ")rotate(-90)"
