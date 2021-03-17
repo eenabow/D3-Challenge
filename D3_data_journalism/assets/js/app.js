@@ -58,13 +58,10 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .append("circle")
         .attr("cx", function (d) { return xLinearScale(d.smokes); })
         .attr("cy", function (d) { return yLinearScale(d.healthcare); })
-        .attr("r", 12)
+        .attr("r", 15)
         .style("fill", "#69acb3")
-        .attr("stroke", "white")
-        // .append("text").text(function (d) { return (d.abbr); })
-        // .attr("cx", function (d) { return xLinearScale(d.smokes); })
-        // .attr("cy", function (d) { return yLinearScale(d.healthcare) + 10 / 2.5;; })
-
+        .style("stroke", "blue")
+        
     chartGroup.selectAll("text.abr")
         .data(Data)
         .enter()
@@ -73,6 +70,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .attr("x", d => xLinearScale(d.smokes)-10)
         .attr("y", d => yLinearScale(d.healthcare)+4)
         .attr("fill", "white")
+        .attr("opacity", "50")
         .text(d => d.abbr)
 
 
