@@ -38,7 +38,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
 
     // Configure a linear X scale for Smokers
     var xLinearScale = d3.scaleLinear()
-        .domain(d3.extent(Data, data => data.smokes))
+        .domain([(d3.min(Data, data => data.smokes)-1), (d3.max(Data, data => data.smokes)+2)])
         .range([0, chartWidth]);
 
     // Configure a linear y scale for insured by healthcare
@@ -61,8 +61,9 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .attr("r", 15)
         .style("fill", "#69acb3")
         .style("stroke", "blue")
-        
-    chartGroup.selectAll("text.abr")
+    
+    // New variable appends circles created with state's abbreviations
+    var circles = chartGroup.selectAll("text.abr")
         .data(Data)
         .enter()
         .append("text")
@@ -73,8 +74,13 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .attr("opacity", "50")
         .text(d => d.abbr)
 
+    // Append tooltip div
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .html(function (d) {
+            return (`${d.state}<br><hr> Smokes: ${d.smokes}% <br> Healthcare: ${d.healthcare}%`)
+        });
 
-        
     // Create the left axis inside of the SVG 
     chartGroup.append("g")
         .classed("axis", true)
@@ -86,17 +92,17 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .attr("transform", `translate(0, ${chartHeight})`)
         .call(bottomAxis);
 
-        var leftTextX = 0 
-        var leftTextY = 0
+    var leftTextX = 0 
+    var leftTextY = 0
 
-    // Add axes 
+    // Add x and y axis labels
     chartGroup.append("text")
         .attr("x", 400)
         .attr("y", 420)
         .attr("class", "aText active x")
         .text("Smokes (%)");
 
-        chartGroup.append("text")
+    chartGroup.append("text")
         .attr("x", -180)
         .attr("y", -35)
         .attr(
@@ -104,28 +110,17 @@ d3.csv("assets/data/data.csv").then(function (Data) {
             "translate(" + leftTextX + ", " + leftTextY + ")rotate(-90)"
           )
         .attr("class", "aText active y")
-        .text("Lacks healthcare (%)");
+        .text("H a v e    H e a l t h c a r e (%)");
 
-        // Step 1: Append tooltip div
-    var toolTip = d3.tip()
-        .attr("class", "tooltip")
-        .classed("tooltip", true)
-        .html(function (d) {
-            return (`${d.state}<br><hr> Smokes: ${d.smokes}% <br> Lacks Healthcare: ${d.healthcare}`)
-        });
-
+    // Call tooltip on mouseover events
     chartGroup.call(toolTip);
     
-    // Step 2: Create "mouseover" event listener to display tooltip
-    circlesGroup.on("mouseover", function(d) {
-        toolTip.show(data, this)
-            // .style("left", d3.event.pageX + "px")
-            // .style("top", d3.event.pageY + "px");
-    })
-        // Step 3: Create "mouseout" event listener to hide tooltip
-        .on("mouseout", function() {
-        toolTip.style("display", "none");
-
+    circles.on("mouseover", function (data) {
+        toolTip.show(data, this);
+      })
+        .on("mouseout", function (data, index) {
+          toolTip.hide(data);
+        });
     
 
 }).catch(function (error) {
