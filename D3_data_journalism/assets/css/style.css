@@ -12,7 +12,7 @@ html {
 body {
   /* Padding bottom by footer height */
   padding-bottom: 80px;
-  display: inline-block;
+  margin: auto;
 }
 
 /* Create background for tooltip */
@@ -30,7 +30,10 @@ body {
   /* display: none; */
 }
 
-
+.article {
+  padding-left: 200px;
+  text-align: center;
+}
 #footer {
   position: absolute;
   bottom: 0;
