@@ -58,7 +58,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
         .append("circle")
         .attr("cx", function (d) { return xLinearScale(d.smokes); })
         .attr("cy", function (d) { return yLinearScale(d.healthcare); })
-        .attr("r", 15)
+        .attr("r", 17)
         .style("fill", "#69acb3")
         .style("stroke", "blue")
     
@@ -78,7 +78,7 @@ d3.csv("assets/data/data.csv").then(function (Data) {
     var toolTip = d3.tip()
         .attr("class", "tooltip")
         .html(function (d) {
-            return (`${d.state}<br><hr> Smokes: ${d.smokes}% <br> Healthcare: ${d.healthcare}%`)
+            return (`<h6>${d.state}</h6></<hr> Smokes: ${d.smokes}% <br> Healthcare: ${d.healthcare}%`)
         });
 
     // Create the left axis inside of the SVG 
