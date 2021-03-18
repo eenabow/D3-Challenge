@@ -7,7 +7,7 @@ The data set included with the assignment is based on 2014 ACS 1-year estimates 
 
 ### Core Assignment: D3 Dabbler 
 
-![Scatterplot](Images/Scatterplot.png)
+![Scatterplot](/Images/Scatterplot.png)
 
 Create a scatter plot between two of the data variables: `Healthcare vs. Smokers`.
 
